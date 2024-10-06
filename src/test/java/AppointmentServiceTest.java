@@ -19,7 +19,8 @@ class AppointmentServiceTest {
     // Test for adding a valid appointment
     @Test
     public void testAddValidAppointment() {
-        Date futureDate = new Date(System.currentTimeMillis() + 100000); // Valid future date
+        // Creating a valid future date
+        Date futureDate = new Date(System.currentTimeMillis() + 100000);
         Appointment appointment = new Appointment("1234567890", futureDate, "Dentist appointment");
         appointmentService.addAppointment(appointment);
         Appointment retrievedAppointment = appointmentService.getAppointment("1234567890");
