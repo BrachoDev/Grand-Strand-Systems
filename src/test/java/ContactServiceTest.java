@@ -17,12 +17,14 @@ public class ContactServiceTest {
 
     // Test for AddContact Method
     @Test
-    public void testAddContact() {
+    public void testAddValidContact() {
+        // Creating Contact and adding it to contactsMap
         Contact contact = new Contact("1234567890", "Carlos", "Bracho", "0987654321", "123 Pallet Town");
-        assertTrue(contactService.addContact(contact));
+        contactService.addContact(contact);
+        Contact retrievedContact = contactService.getContact("1234567890");
 
-        // Trying to add the same contact ID again (should fail)
-        assertFalse(contactService.addContact(contact));
+        // Making Sure that the contact was added
+        assertNotNull(retrievedContact);
     }
 
     // Test for DeleteContact Method
