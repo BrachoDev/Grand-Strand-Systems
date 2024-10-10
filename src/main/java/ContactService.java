@@ -6,12 +6,7 @@ import java.util.HashMap;
 public class ContactService {
 
     // Creating a HashMap to store Contacts.
-    private HashMap<String, Contact> contactsMap;
-
-    // Initializing HashMap.
-    public ContactService() {
-        this.contactsMap = new HashMap<>();
-    }
+    private HashMap<String, Contact> contactsMap = new HashMap<>();
 
     //Method to add contacts
     public boolean addContact(Contact contact) {
