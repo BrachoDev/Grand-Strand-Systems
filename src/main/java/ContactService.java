@@ -27,13 +27,12 @@ public class ContactService {
     }
 
     // Method to update contact
-    public boolean updateContact(String contactID, String firstName, String lastName, String phone, String address) {
+    public void updateContact(String contactID, String firstName, String lastName, String phone, String address) {
         //Getting contact by ID
         Contact contact = contactsMap.get(contactID);
 
         if (contact == null) {
-            System.out.println("Contact does not exist.");
-            return false;
+            throw new IllegalArgumentException("Contact does not exist.");
         }
 
         // Setting variables if contacts exists:
@@ -43,7 +42,6 @@ public class ContactService {
         contact.setAddress(address);
 
         System.out.println("Contact updated successfully.");
-        return true;
     }
 
 /*

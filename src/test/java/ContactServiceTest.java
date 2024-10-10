@@ -63,7 +63,7 @@ public class ContactServiceTest {
     @Test
     public void testDeleteValidContact() {
         Contact contact1 = new Contact("1234567890", "Carlos", "Bracho", "0987654321", "123 Pallet Town");
-        Contact contact2 = new Contact("1234567891", "Momo", "Park", "0987654321", "456 Pino Montana");
+        Contact contact2 = new Contact("1234567891", "Momo", "Park", "1987654321", "456 Pino Montana");
         contactService.addContact(contact1);
         contactService.addContact(contact2);
 
@@ -82,28 +82,75 @@ public class ContactServiceTest {
         });
     }
 
-
-    // Test for UpdateContact Method
+    // Test for updating valid contact
     @Test
-    public void testUpdateContact() {
-        Contact contact = new Contact("1234567890", "Carlos", "Bracho", "0987654321", "123 Pallet Town");
-        contactService.addContact(contact);
+    void testUpdateValidContact() {
+        // Adding two contacts to contactsMap
+        Contact contact1 = new Contact("1234567890", "Carlos", "Bracho", "0987654321", "123 Pallet Town");
+        Contact contact2 = new Contact("1234567891", "Momo", "Park", "1987654321", "456 Pino Montana");
+        contactService.addContact(contact1);
+        contactService.addContact(contact2);
 
-        // Updating contact details
-        assertTrue(contactService.updateContact("1234567890", "Camille", "Shaine", "1234567890", "456 Kanto Region"));
+        // Updating all fields of an existing contact
+        contactService.updateContact("1234567890", "Miguel", "Ortega", "1234567890", "456 Elm St");
 
-        // Verifying that the contact was updated
         Contact updatedContact = contactService.getContact("1234567890");
-        assertEquals("Camille", updatedContact.getFirstName());
-        assertEquals("Shaine", updatedContact.getLastName());
+
+        // Assertions to verify the contact was updated correctly
+        assertEquals("Miguel", updatedContact.getFirstName());
+        assertEquals("Ortega", updatedContact.getLastName());
         assertEquals("1234567890", updatedContact.getPhone());
-        assertEquals("456 Kanto Region", updatedContact.getAddress());
+        assertEquals("456 Elm St", updatedContact.getAddress());
     }
 
-    // Test for Non-Existent Contact
     @Test
-    public void testUpdateNonExistentContact() {
-        // Trying to update a contact that doesn't exist should return false
-        assertFalse(contactService.updateContact("0000000000", "Ash", "Ketchum", "0987654321", "456 Johto City"));
+    void testUpdateContactNonExistent() {
+        // Adding two contacts to contactsMap
+        Contact contact1 = new Contact("1234567890", "Carlos", "Bracho", "0987654321", "123 Pallet Town");
+        Contact contact2 = new Contact("1234567891", "Momo", "Park", "1987654321", "456 Pino Montana");
+        contactService.addContact(contact1);
+        contactService.addContact(contact2);
+
+        // Should throw an exception because contact does not exist
+        assertThrows(IllegalArgumentException.class, () -> {
+            contactService.updateContact("1234567892", "Sasuke", "Uchiha", "0987654321", "456 Elm St");
+        });
+
+    }
+
+    // Test for updating a contact using an invalid phone number
+    @Test
+    void testUpdateContactInvalidPhone() {
+        // Adding two contacts to contactsMap
+        Contact contact1 = new Contact("1234567890", "Carlos", "Bracho", "0987654321", "123 Pallet Town");
+        Contact contact2 = new Contact("1234567891", "Momo", "Park", "1987654321", "456 Pino Montana");
+        contactService.addContact(contact1);
+        contactService.addContact(contact2);
+
+        // Phone number too long
+        assertThrows(IllegalArgumentException.class, () -> {
+            contactService.updateContact("1234567890", "Carlos", "Bracho", "09876543211243", "123 Pallet Town");
+        });
+
+        // Phone number too short
+        assertThrows(IllegalArgumentException.class, () -> {
+            contactService.updateContact("1234567890", "Carlos", "Bracho", "09876", "123 Pallet Town");
+        });
+
+    }
+
+    // Test for updating Contact with Null values
+    @Test
+    void testUpdateContactNullValues() {
+        // Adding two contacts to contactsMap
+        Contact contact1 = new Contact("1234567890", "Carlos", "Bracho", "0987654321", "123 Pallet Town");
+        Contact contact2 = new Contact("1234567891", "Momo", "Park", "1987654321", "456 Pino Montana");
+        contactService.addContact(contact1);
+        contactService.addContact(contact2);
+
+        // This should throw an exception because values should not be null
+        assertThrows(IllegalArgumentException.class, () -> {
+            contactService.updateContact("1234567890", null, null, null, null);
+        });
     }
 }
