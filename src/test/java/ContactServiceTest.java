@@ -15,7 +15,7 @@ public class ContactServiceTest {
         contactService = new ContactService();
     }
 
-    // Test for AddContact Method
+    // Test for Adding a valid contact and addContact functionality
     @Test
     public void testAddValidContact() {
         // Creating Contact and adding it to contactsMap
@@ -25,6 +25,19 @@ public class ContactServiceTest {
 
         // Making Sure that the contact was added
         assertNotNull(retrievedContact);
+    }
+
+    // Test for adding a contact with duplicate contactID
+    @Test
+    public void testAddDuplicateContactID(){
+        Contact contact1 = new Contact("1234567890", "Carlos", "Bracho", "0987654321", "123 Pallet Town");
+        Contact contact2 = new Contact("1234567890", "Camille", "Santos", "1234567890", "123 Cool Avenue");
+        contactService.addContact(contact1);
+
+        // This should throw and exception for duplicate contact ID
+        assertThrows(IllegalArgumentException.class, () -> {
+            contactService.addContact(contact2);
+        });
     }
 
     // Test for DeleteContact Method

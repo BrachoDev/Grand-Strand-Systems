@@ -9,17 +9,13 @@ public class ContactService {
     private HashMap<String, Contact> contactsMap = new HashMap<>();
 
     //Method to add contacts
-    public boolean addContact(Contact contact) {
+    public void addContact(Contact contact) {
         // Validating if contact exists in contactsMap already
         if (contactsMap.containsKey(contact.getContactID())) {
-            System.out.println("A contact with this ID already exists.");
-            return false;
+            throw new IllegalArgumentException("Contact ID already exists.");
         }
         // If not in contactMap, add contact
-        else {
-            contactsMap.put(contact.getContactID(), contact);
-            return true;
-        }
+        contactsMap.put(contact.getContactID(), contact);
     }
 
     //Method to delete contact
