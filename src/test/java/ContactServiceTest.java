@@ -74,6 +74,14 @@ public class ContactServiceTest {
         assertNull(contactService.getContact("1234567890"));
     }
 
+    // Test for deleting a contact that is not existent
+    @Test
+    public void testDeleteNonExistentContact() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            contactService.deleteContact("nonexistentID");
+        });
+    }
+
 
     // Test for UpdateContact Method
     @Test
