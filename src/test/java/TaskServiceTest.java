@@ -15,6 +15,27 @@ class TaskServiceTest {
         taskService = new TaskService();
     }
 
+    // Test for getTask to ensure it works properly
+    @Test
+    public void testGetTask(){
+        //Adding new tasks
+        Task task1 = new Task("1234567890", "Clean Bathroom", "Clean Toilet and Shower");
+        Task task2 = new Task("0987654321", "Wash Dishes", "Wash all dirty plates");
+        taskService.addTask(task1);
+        taskService.addTask(task2);
+
+        Task retrievedTask = taskService.getTask("0987654321");
+
+        // Making sure that task is not null
+        assertNotNull(retrievedTask);
+
+        // Making sure that getTask retrieves the correct information
+        assertEquals("0987654321", retrievedTask.getTaskID());
+        assertEquals("Wash Dishes", retrievedTask.getName());
+        assertEquals("Wash all dirty plates", retrievedTask.getDescription());
+    }
+
+
     // Test for adding a valid task
     @Test
     public void testAddValidTask() {
