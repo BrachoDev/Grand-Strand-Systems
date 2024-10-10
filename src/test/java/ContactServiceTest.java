@@ -15,6 +15,28 @@ public class ContactServiceTest {
         contactService = new ContactService();
     }
 
+    // Test for making sure that the getContact method works
+    @Test
+    public void testGetContact(){
+        //Adding a new contact
+        Contact contact1 = new Contact("1234567890", "Carlos", "Bracho", "0987654321", "123 Pallet Town");
+        Contact contact2 = new Contact("1234567891", "Momo", "Park", "1987654321", "456 Pino Montana");
+        contactService.addContact(contact1);
+        contactService.addContact(contact2);
+
+        Contact retrievedContact = contactService.getContact("1234567890");
+
+        // Making sure that contact is not null
+        assertNotNull(retrievedContact);
+
+        // Making sure that contact retrieves correct information
+        assertEquals("1234567890", retrievedContact.getContactID());
+        assertEquals("Carlos", retrievedContact.getFirstName());
+        assertEquals("Bracho", retrievedContact.getLastName());
+        assertEquals("0987654321", retrievedContact.getPhone());
+        assertEquals("123 Pallet Town", retrievedContact.getAddress());
+    }
+
     // Test for Adding a valid contact and addContact functionality
     @Test
     public void testAddValidContact() {
