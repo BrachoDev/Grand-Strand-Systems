@@ -39,12 +39,20 @@ class ContactTest {
         });
     }
 
-    // Test with invalid First Name
+    // Test with invalid First Name = null
     @Test
     public void testNullFirstName() {
         // Expect IllegalArgumentException when firstName is null
         assertThrows(IllegalArgumentException.class, () -> {
             new Contact("1234567890", null, "Shaine", "0987654321", "123 pallet Town");
+        });
+    }
+
+    // Test with invalid First Name = Too Long
+    @Test
+    public void testInvalidFirstName_TooLong() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Contact("1234567890", "Camille Shaine", "Shaine", "0987654321", "123 Pallet Town");
         });
     }
 
