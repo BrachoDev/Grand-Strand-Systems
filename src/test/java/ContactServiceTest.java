@@ -59,16 +59,21 @@ public class ContactServiceTest {
         assertEquals(contact3, contactService.getContact("1234567892"));
     }
 
-    // Test for DeleteContact Method
+    // Test for Deleting a valid contact
     @Test
-    public void testDeleteContact() {
-        Contact contact = new Contact("1234567890", "Carlos", "Bracho", "0987654321", "123 Pallet Town");
-        contactService.addContact(contact);
+    public void testDeleteValidContact() {
+        Contact contact1 = new Contact("1234567890", "Carlos", "Bracho", "0987654321", "123 Pallet Town");
+        Contact contact2 = new Contact("1234567891", "Momo", "Park", "0987654321", "456 Pino Montana");
+        contactService.addContact(contact1);
+        contactService.addContact(contact2);
 
-        // Deleting the contact and verifying deletion
-        assertTrue(contactService.deleteContact("1234567890"));
-        assertFalse(contactService.deleteContact("1234567890")); // Should fail since it's already deleted
+        // Deleting one of the contacts from contactsMap
+        contactService.deleteContact("1234567890");
+
+        // This should verify that the contact was deleted by checking if it returns null
+        assertNull(contactService.getContact("1234567890"));
     }
+
 
     // Test for UpdateContact Method
     @Test

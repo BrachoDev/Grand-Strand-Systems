@@ -19,17 +19,11 @@ public class ContactService {
     }
 
     //Method to delete contact
-    public boolean deleteContact(String contactID) {
-        // Validating that contactMap contains the ID before deleting
-        if (contactsMap.containsKey(contactID)) {
-            contactsMap.remove(contactID);
-            return true;
+    public void deleteContact(String contactID) {
+        if (!contactsMap.containsKey(contactID)) {
+            throw new IllegalArgumentException("Contact ID does not exist");
         }
-        // Contact not found scenario
-        else {
-            System.out.println("Contact does not exist.");
-            return false;
-        }
+        contactsMap.remove(contactID);
     }
 
     // Method to update contact
