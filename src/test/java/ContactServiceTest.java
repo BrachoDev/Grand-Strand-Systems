@@ -40,6 +40,25 @@ public class ContactServiceTest {
         });
     }
 
+    // Test for adding multiple valid contacts
+    @Test
+    public void testAddMultipleContactsInBatch() {
+        // Creating multiple Contact objects
+        Contact contact1 = new Contact("1234567890", "Leo", "Gonzales", "1234567890", "123 Pallet town");
+        Contact contact2 = new Contact("1234567891", "Momo", "Park", "0987654321", "456 Pino Montana");
+        Contact contact3 = new Contact("1234567892", "Carlos", "Bracho", "1122334455", "789 Coromoto Way");
+
+        // Adding contacts to ContactsMap
+        contactService.addContact(contact1);
+        contactService.addContact(contact2);
+        contactService.addContact(contact3);
+
+        // Verify that the contacts were added successfully by checking their existence
+        assertEquals(contact1, contactService.getContact("1234567890"));
+        assertEquals(contact2, contactService.getContact("1234567891"));
+        assertEquals(contact3, contactService.getContact("1234567892"));
+    }
+
     // Test for DeleteContact Method
     @Test
     public void testDeleteContact() {
