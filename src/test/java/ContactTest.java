@@ -22,10 +22,18 @@ class ContactTest {
 
     }
 
-    // Test with invalid contactID
+    // Test with invalid data when contactID = Null
     @Test
-    public void testInvalidContactID() {
+    public void testInvalidContactID_Null() {
         // Expect IllegalArgumentException when contactID is too long
+        assertThrows(IllegalArgumentException.class, () -> {
+            new Contact(null, "Camille", "Shaine", "0987654321", "123 Pallet Town");
+        });
+    }
+
+    // Test with invalid data when contactID = Too Long
+    @Test
+    public void testInvalidContactID_TooLong() {
         assertThrows(IllegalArgumentException.class, () -> {
             new Contact("12345678901", "Camille", "Shaine", "0987654321", "123 Pallet Town");
         });
