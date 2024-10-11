@@ -137,7 +137,7 @@ class TaskServiceTest {
         });
     }
 
-    // test for when updating task name with Null
+    // test for when updating task name with Null value
     @Test
     public void testUpdateNameNull() {
         Task task = new Task("123456789", "Task Name", "Task Description");
@@ -167,6 +167,22 @@ class TaskServiceTest {
 
         assertThrows(IllegalArgumentException.class, () -> {
             taskService.updateTaskDescription("1234567890", "New Description");
+        });
+    }
+
+    // Test for when updating task description with Null value
+    @Test
+    public void testUpdateDescriptionNull() {
+        // Adding multiple tasks
+        Task task1 = new Task("1234567890", "Clean Bathroom", "Clean Toilet and Shower");
+        Task task2 = new Task("0987654321", "Wash Dishes", "Wash all dirty plates");
+        Task task3 = new Task("1234567891", "Clean Car", "Clean Tires and Dashboard");
+        taskService.addTask(task1);
+        taskService.addTask(task2);
+        taskService.addTask(task3);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            taskService.updateTaskDescription("1234567890", null);
         });
     }
 }
