@@ -35,7 +35,6 @@ class TaskServiceTest {
         assertEquals("Wash all dirty plates", retrievedTask.getDescription());
     }
 
-
     // Test for adding a valid task
     @Test
     public void testAddValidTask() {
@@ -61,6 +60,23 @@ class TaskServiceTest {
         assertThrows(IllegalArgumentException.class, () -> {
             taskService.addTask(task2);
         });
+    }
+
+    // Test for adding multiple valid Tasks
+    @Test
+    public void testAddMultipleTasksInBatch() {
+        // Creating multiple contacts
+        Task task1 = new Task("1234567890", "Clean Bathroom", "Clean Toilet and Shower");
+        Task task2 = new Task("0987654321", "Wash Dishes", "Wash all dirty plates");
+        Task task3 = new Task("1234567891", "Clean Car", "Clean Tires and Dashboard");
+        taskService.addTask(task1);
+        taskService.addTask(task2);
+        taskService.addTask(task3);
+
+        // Verifying that all tasks were added correctly
+        assertEquals(task1, taskService.getTask("1234567890"));
+        assertEquals(task2, taskService.getTask("0987654321"));
+        assertEquals(task3, taskService.getTask("1234567891"));
     }
 
     // Test for deleting a valid task
