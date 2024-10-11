@@ -82,21 +82,36 @@ class TaskServiceTest {
     // Test for deleting a valid task
     @Test
     public void testDeleteValidTask() {
-        Task task = new Task("123456789", "Task Name", "Task Description");
-        taskService.addTask(task);
-        taskService.deleteTask("123456789");
+        // Adding multiple tasks
+        Task task1 = new Task("1234567890", "Clean Bathroom", "Clean Toilet and Shower");
+        Task task2 = new Task("0987654321", "Wash Dishes", "Wash all dirty plates");
+        Task task3 = new Task("1234567891", "Clean Car", "Clean Tires and Dashboard");
+        taskService.addTask(task1);
+        taskService.addTask(task2);
+        taskService.addTask(task3);
+
+        taskService.deleteTask("1234567890");
 
         // Should throw an exception since task was deleted
         assertThrows(IllegalArgumentException.class, () -> {
-            taskService.getTask("123");
+            taskService.getTask("1234567890");
         });
     }
 
     // Test for deleting a task with a task ID that does not exist
     @Test
     public void testDeleteNonExistentTask() {
+        // Adding multiple tasks
+        Task task1 = new Task("1234567890", "Clean Bathroom", "Clean Toilet and Shower");
+        Task task2 = new Task("0987654321", "Wash Dishes", "Wash all dirty plates");
+        Task task3 = new Task("1234567891", "Clean Car", "Clean Tires and Dashboard");
+        taskService.addTask(task1);
+        taskService.addTask(task2);
+        taskService.addTask(task3);
+
+        // Should throw an error since taskID does not exist
         assertThrows(IllegalArgumentException.class, () -> {
-            taskService.deleteTask("nonexistent");
+            taskService.deleteTask("1236547890");
         });
     }
 
