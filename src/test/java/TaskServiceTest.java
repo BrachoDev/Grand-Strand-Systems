@@ -162,8 +162,11 @@ class TaskServiceTest {
     // Test for updating task description with a task ID that does not exist
     @Test
     public void testUpdateTaskDescriptionNonExistent() {
+        Task task = new Task("123456789", "Task Name", "Task Description");
+        taskService.addTask(task);
+
         assertThrows(IllegalArgumentException.class, () -> {
-            taskService.updateTaskDescription("nonexistent", "New Description");
+            taskService.updateTaskDescription("1234567890", "New Description");
         });
     }
 }
